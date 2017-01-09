@@ -3,6 +3,7 @@ A test to generate valid nginx syntax from a swagger.yml file.
 
 ## Usage
 `ansible-playbook swagger_to_nginx.yml -e "swaggerfile=/path/to/swagger.yaml"`
+
 (If you want to test it out, just run `ansible-playbook swagger_to_nginx.yml`)
 
 This will create `/tmp/swagger.out`, which should be a valid nginx server block.
