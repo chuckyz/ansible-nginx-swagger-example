@@ -1,0 +1,9 @@
+---
+- debug:
+    var: swaggerfile
+- name: "SWAGGER TO NGINX | Include swagger yaml as variable file"
+  include_vars: "{{ swaggerfile }}"
+- name: "SWAGGER TO NGINX | Convert swagger yaml to nginx server block"
+  template:
+    src: "swagger.j2"
+    dest: "/tmp/swagger.out"

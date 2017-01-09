@@ -1,0 +1,5 @@
+---
+webroot: "/srv/myroot/public"
+index_files: "index.html index.htm"
+private_cidr: "192.168.0.0/24"
+swaggerfile: "swagger.yaml"

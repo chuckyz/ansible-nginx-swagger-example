@@ -1,0 +1,30 @@
+server {
+    ## This is just a testing template.
+    ## In production, you should use a valid SSL server block.
+    listen 80;
+
+    server_name {{ host }};
+
+    root {{ webroot }};
+    index {{ index_files }};
+
+{% if basePath is defined %}
+  location {{ basePath }} {
+{% endif %}
+{%  for path in paths %}
+{#  If path contains {...}, change to .* and make location a wildcard block #}
+    location {% if "{" in path %}~ {% endif %}{% if basePath is defined %}{{ basePath }}{% endif %}{{ path | regex_replace("{.*}",".*") }} {
+{#      Swagger paths should contain (get|post|...), and parameters. #}
+        limit_except {% for method in paths[path] %}{% if method != "parameters" %}{{ method.upper() }} {% endif %}{% endfor %} {
+            allow {{ private_cidr }};
+            deny all;
+        }
+
+    }
+{%  endfor %}
+{% if basePath is defined %}
+  }
+{% endif %}
+
+}
+
